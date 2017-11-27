@@ -1,8 +1,5 @@
 #include "vec4.h"
 
-vec4::vec4() : vec4(0, 0, 0, 0, 0) {
-}
-
 vec4::vec4(float f) : vec4(f, f, f, f) {}
 
 vec4::vec4(const vec4 & v) {
@@ -10,37 +7,25 @@ vec4::vec4(const vec4 & v) {
 	this->y = v.y;
 	this->z = v.z;
 	this->w = v.w;
-	this->calcM = v.calcM;
-	this->magnitude = v.magnitude;
 }
 
 vec4::vec4(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) {
-	this->magnitude = 0;
-	this->calcM = true;
-}
-
-vec4::vec4(float x, float y, float z, float w, float magnitude) : x(x), y(y), z(z), w(w), magnitude(magnitude) {
-	this->calcM = false;
 }
 
 void vec4::setX(float x) {
 	this->x = x;
-	calcM = true;
 }
 
 void vec4::setY(float y) {
 	this->y = y;
-	calcM = true;
 }
 
 void vec4::setZ(float z) {
 	this->z = z;
-	calcM = true;
 }
 
 void vec4::setW(float w) {
 	this->w = w;
-	calcM = true;
 }
 
 void vec4::set(float x, float y, float z, float w) {
@@ -48,7 +33,6 @@ void vec4::set(float x, float y, float z, float w) {
 	this->x = x;
 	this->z = z;
 	this->w = w;
-	calcM = true;
 }
 
 void vec4::set(const vec4 & v2) {
@@ -56,8 +40,6 @@ void vec4::set(const vec4 & v2) {
 	y = v2.y;
 	z = v2.z;
 	w = v2.w;
-	calcM = v2.calcM;
-	magnitude = v2.magnitude;
 }
 
 float vec4::getX() const {

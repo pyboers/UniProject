@@ -1,9 +1,5 @@
 #include "vec2.h"
 
-vec2::vec2() : vec2(0, 0, 0)
-{
-}
-
 vec2::vec2(float f) : vec2(f, f)
 {
 }

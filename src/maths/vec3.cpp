@@ -8,9 +8,6 @@ vec3 vec3::getCrossProduct(vec3 v1, vec3 v2)
 	return vec3(cx, cy, cz);
 }
 
-vec3::vec3() : vec3(0, 0, 0, 0) {
-}
-
 vec3::vec3(float f) : vec3(f, f, f) {}
 
 vec3::vec3(const vec3 & v) {
