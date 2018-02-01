@@ -13,7 +13,7 @@
 class PhysicsWorld;
 
 class Body{
-private:
+public:
 	/*
 	 * linear
 	 */
@@ -26,7 +26,7 @@ private:
 	/*
 	 * properties
 	 */
-	float inv_mass;
+	float inv_Mass;
 	mat3 inv_InertiaTensor;
 
 public:

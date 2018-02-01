@@ -7,15 +7,21 @@
 #define UNIPROJECT_ELEMENT_H
 
 #include "Body.h"
-#include "Shape.h"
+#include "shapes/Shape.h"
+#include "ElementListener.h"
 
 class Element{
+private:
+	std::vector<ElementListener*> listeners;
+public:
 	Body &body;
 	Shape* shape = nullptr;
 	unsigned int filtertype;
 	unsigned int filtercolliders;
 
 	Element(Body &b, Shape *shape);
+	void addListener(ElementListener *bodyListener);
+	const std::vector<ElementListener*>& getListeners();
 	~Element();
 
 	void update();
