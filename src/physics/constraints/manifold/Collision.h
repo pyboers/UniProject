@@ -13,9 +13,9 @@ class Collision{ //Todo: add friction
 protected:
 	Body &a;
 	Body &b;
-	vec3 normal, mtv;
+	vec3 normal, mtv, friction;
 	vec3 pointA, pointB;
-	float normalImpulseSum;
+	float normalImpulseSum, frictionImpulseSum;
 
 	Collision(Body &a, Body &b, const vec2& mtv, const vec2& normal, const vec2& point);
 

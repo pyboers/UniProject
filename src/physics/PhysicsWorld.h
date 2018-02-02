@@ -8,11 +8,17 @@
 
 #include <vector>
 #include "Body.h"
+#include "constraints/ConstraintSolver.h"
+#include "constraints/manifold/CollisionDetector.h"
 
 class PhysicsWorld{
-public:
+protected:
 	std::vector<Body*> bodies;
 	int frequency;
+	ConstraintSolver *solver;
+	CollisionDetector *collisionDetector;
+
+public:
 	PhysicsWorld(int count, int frequency);
 	~PhysicsWorld();
 
