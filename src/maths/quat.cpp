@@ -1,7 +1,6 @@
-//
-// Created by Pierre-Yves Boers on 01/02/2018.
-//
+//From IGA_C
 #include "quat.h"
+#include "mat4.h"
 quat::quat() : quat(0, 0, 0, 0) {}
 
 quat::quat(float w, float x, float y, float z) : w(w), x(x), y(y), z(z){}

@@ -207,3 +207,9 @@ vec3* vec3::operator()(const vec3& v2)
 	z = v2.z;
 	return this;
 }
+
+vec3::vec3() {
+	x = 0;
+	y = 0;
+	z = 0;
+}

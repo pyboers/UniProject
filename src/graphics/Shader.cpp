@@ -100,7 +100,7 @@ int Shader::getUniformLocation(char * name) {
 }
 
 void Shader::uniformMat4(char * name, mat4 * m) {
-	glUniformMatrix4fv(getUniformLocation(name), 1, 0, m->getData());
+	glUniformMatrix4fv(getUniformLocation(name), 1,  1, m->getData());
 }
 
 void Shader::uniformVec3(char * name, vec3 * v) {

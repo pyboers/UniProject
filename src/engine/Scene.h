@@ -5,15 +5,15 @@
 #pragma once
 #ifndef UNIPROJECT_SCENE_H
 #define UNIPROJECT_SCENE_H
-class Scene{
 
+class Scene{
 public:
-	void start();
-	void stop();
-	void pause();
-	void resume();
-	void input(float dt);
-	void update(float dt);
-	void render();
+	virtual void start() = 0;
+	virtual void stop() = 0;
+	virtual void pause() = 0;
+	virtual void resume() = 0;
+	virtual void input(float dt) = 0;
+	virtual void update(float dt) = 0;
+	virtual void render() = 0;
 };
 #endif //UNIPROJECT_SCENE_H

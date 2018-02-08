@@ -6,19 +6,27 @@
 #ifndef UNIPROJECT_ENGINE_H
 #define UNIPROJECT_ENGINE_H
 
+#include <iostream>
+#include <SDL2/SDL.h>
+#include <gl/glew.h>
 #include <vector>
 #include "Scene.h"
 
 class Engine {
 private:
-	std::vector<Scene> scenes;
-
+	std::vector<Scene *> scenes;
+	bool mainLoop = false;
+	SDL_Window *window;
+	int windowWidth, windowHeight;
 	Engine();
 
 public:
 	/*
 	 * Singleton functions
 	 */
+
+	void init(int windowWidth, int windowHeight);
+
 	Engine(Engine const &) = delete; //no copy constructor for singleton
 	void operator=(Engine const &) = delete; //No assigning of the singleton
 
@@ -36,7 +44,7 @@ public:
 	 * @param scene The replacement
 	 * @return The removed scene(note this should be deleted/handled by the user)
 	 */
-	Scene*  swapScene(Scene* scene);
+	Scene* swapScene(Scene* scene);
 	/**
 	 * Pushes the scene on the stack
 	 * @param scene New scene
@@ -51,9 +59,8 @@ public:
 	/*
 	 * Engine functions
 	 */
-	void update(float dt);
-	void input(float dt);
-	void render();
+	void start();
+	void stop();
 
 
 };

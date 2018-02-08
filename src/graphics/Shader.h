@@ -16,7 +16,6 @@ private:
 	Shader(GLuint programId, GLuint vsId, GLuint fsId) 
 		: programId(programId), vsId(vsId), fsId(fsId) {}
 
-	~Shader();
 public:
 	static Shader *load(GLchar *vsname, GLchar *fsname);
 	void bind();
@@ -27,6 +26,7 @@ public:
 	void uniformVec4(char *name, float x, float y, float z, float w);
 	void uniformf(char *name, float);
 	void uniformi(char *name, int);
+	~Shader();
 };
 
 #endif

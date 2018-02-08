@@ -18,4 +18,6 @@ public:
 	virtual void update(float dt) override;
 	virtual void solve(float dt) override;
 };
+
+
 #endif //UNIPROJECT_MANIFOLD_H

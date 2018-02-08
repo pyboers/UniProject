@@ -7,8 +7,7 @@
 #define UNIPROJECT_QUAT_H
 
 #include "vec3.h"
-#include "mat4.h"
-
+class mat4;
 class quat{
 private:
 	float x;

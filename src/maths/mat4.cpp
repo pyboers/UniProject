@@ -127,6 +127,11 @@ mat4* mat4::initRotation(float x, float y, float z)
 	return this;
 }
 
+mat4 *mat4::initRotation(const quat &rot) {
+	vec3 euler = rot.toEulerAngles();
+	return initRotation(euler.getX(), euler.getY(), euler.getZ());
+}
+
 mat4* mat4::initRotation(const vec3& forward, const vec3& up)
 {
 	vec3 f = forward.normalized();
@@ -224,11 +229,11 @@ mat4* mat4::initPerspective(float fov, float aspectRatio, float zNear, float zFa
 	data[7] = 0;
 	data[8] = 0;
 	data[9] = 0;
-	data[10] = (-zNear - zFar) / zRange;
+	data[10] = ((zFar + zNear) / zRange);
 	data[11] = 2 * zFar * zNear / zRange;
 	data[12] = 0;
 	data[13] = 0;
-	data[14] = 1;
+	data[14] = -1;
 	data[15] = 0;
 	return this;
 }
@@ -557,3 +562,4 @@ void mat4::invert()
 	setData(mdata);
 	*this *= (invdet);
 }
+

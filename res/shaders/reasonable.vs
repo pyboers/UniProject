@@ -11,10 +11,9 @@ out vec2 tcoord;
 out vec3 norm;
 out vec3 vpos;
 
-
 void main(void) {
 	vpos = (model * vec4(vertex, 1)).xyz;
-	gl_Position = vp * vec4(vpos, 1);
+	gl_Position =  vp * vec4(vpos, 1);
 	tcoord = texCoord;
 	norm = normal;
 }

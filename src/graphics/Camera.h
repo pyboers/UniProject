@@ -5,6 +5,7 @@
 #include "../maths/vec3.h"
 #include <string>
 #include "../maths/mat4.h"
+#include "../maths/Transform.h"
 
 class Camera {
 	int width, height;
@@ -16,7 +17,7 @@ class Camera {
 	
 
 public:	
-	vec3 position;
+	Transform transform;
 	void update(float dt);
 	Camera(float, float, float, int, int, float ,float ,float);
 	int getHeight();
