@@ -6,6 +6,7 @@
 #ifndef UNIPROJECT_ELEMENT_H
 #define UNIPROJECT_ELEMENT_H
 
+#include <vector>
 #include "Body.h"
 #include "shapes/Shape.h"
 #include "ElementListener.h"

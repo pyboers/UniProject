@@ -28,6 +28,8 @@ public:
 	 */
 	float inv_Mass;
 	mat3 inv_InertiaTensor;
+	float friction;
+	float restitution;
 
 public:
 	Body(vec3& position, PhysicsWorld& world);

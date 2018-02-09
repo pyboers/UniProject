@@ -3,7 +3,7 @@
 //
 #include "Collision.h"
 
-Collision::Collision(Body &a, Body &b, const vec3 &mtv, const vec3 &normal, const vec3 &point) : a(a), b(b), mtv(mtv), normal(normal),pointA(point - a.position), pointB(point + mtv - b.position), normalImpulseSum(0), tangentImpulseSum(0) {
+Collision::Collision(Body &a, Body &b, const vec3 &mtv, const vec3 &normal, const vec3 &point) : a(a), b(b), mtv(mtv), normal(normal),pointA(point - a.position), pointB(point + mtv - b.position), normalImpulseSum(0), tangentImpulseSum1(0), tangentImpulseSum2(0) {
 	divisorN = b.inv_Mass + a.inv_Mass +
 			((b.inv_InertiaTensor * vec3::getCrossProduct(vec3::getCrossProduct(pointB, normal), pointB))
 			 + (a.inv_InertiaTensor * vec3::getCrossProduct(vec3::getCrossProduct(pointA, normal), pointA))).dot(normal);

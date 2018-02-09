@@ -15,8 +15,19 @@ protected:
 	std::vector<Collision> points;
 public:
 	Manifold(Element &a, Element &b, vec3* collisioninfo, int length);
-	virtual void update(float dt) override;
-	virtual void solve(float dt) override;
+
+	static float getBiasImpulse(const Collision& c, float dt) {
+		float slop = 0.001f;
+		float strength = 0.1f;
+		float s = c.mtv.calculateMagnitude() - slop;
+		if (s > 0) {
+			return (strength / dt) * s;
+		}
+		return 0;
+	}
+
+	void update(float dt) override;
+	void solve(float dt) override;
 };
 
 
