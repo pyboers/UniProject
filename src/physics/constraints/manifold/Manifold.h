@@ -13,6 +13,7 @@
 class Manifold : public BinaryConstraint{
 protected:
 	std::vector<Collision> points;
+	float friction;
 public:
 	Manifold(Element &a, Element &b, vec3* collisioninfo, int length);
 

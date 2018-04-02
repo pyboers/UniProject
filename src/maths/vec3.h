@@ -13,7 +13,6 @@ protected:
 	float z;
 
 public:
-
 	/**
 	 * Constructs an origin vector.
 	 */
@@ -143,6 +142,12 @@ public:
 	vec3* operator()(const vec3& v2);
 
 	static vec3 getCrossProduct(vec3 v1, vec3 v2);
+
+	static const vec3& up();
+
+	static const vec3& right();
+
+	static const vec3& forward();
 };
 
 #endif

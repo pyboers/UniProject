@@ -36,7 +36,7 @@ protected:
 		return nullptr;
 	}
 public:
-	CollisionDetector(std::vector<Body*>& bodies);
+	explicit CollisionDetector(std::vector<Body*>& bodies) : bodies(bodies){}
 
 	virtual Manifold* detectCollisions() = 0;
 };

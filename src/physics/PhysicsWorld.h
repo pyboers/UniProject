@@ -14,7 +14,6 @@
 class PhysicsWorld{
 protected:
 	std::vector<Body*> bodies;
-	int frequency;
 	ConstraintSolver *solver;
 	CollisionDetector *collisionDetector;
 

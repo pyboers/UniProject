@@ -38,6 +38,8 @@ public:
 
 	float length() const;
 
+	quat inverse() const;
+
 	/**
 	 * gets the version of this quaternion normalized.
 	 *
@@ -55,6 +57,8 @@ public:
 	 * @return the product
 	 */
 	quat operator*(quat r) const;
+
+	quat operator*=(quat r);
 
 	/**
 	 * performs Quaternion to 3D vector multiplication with another Quaternion.

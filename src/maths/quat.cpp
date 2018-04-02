@@ -43,6 +43,14 @@ quat quat::operator*(quat r) const
 				z * r.w + w * r.z + x * r.y - y * r.x);
 }
 
+quat quat::operator*=(quat r) {
+	set(w * r.w - x * r.x - y * r.y - z * r.z,
+			x * r.w + w * r.x + y * r.z - z * r.y,
+			y * r.w + w * r.y + z * r.x - x * r.z,
+			z * r.w + w * r.z + x * r.y - y * r.x);
+}
+
+
 quat quat::operator*(vec3 r) const
 {
 	return quat(-x * r.getX() - y * r.getY() - z * r.getZ(),
@@ -274,4 +282,9 @@ bool quat::operator==(const quat& other) const
 quat quat::getCopy() const
 {
 	return quat(w, x, y, z);
+}
+
+quat quat::inverse() const {
+	return conjugate();
+	//TODO: add some stuff about unit quat
 }

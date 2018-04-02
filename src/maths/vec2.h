@@ -8,7 +8,6 @@
 #define nullvec vec2(NAN)
 
 class vec2 {
-
 protected:
 	float x;
 	float y;
@@ -173,6 +172,10 @@ public:
 	 * @return perp vector
 	 */
 	static vec2 perp(const vec2 &v1, float s);
+
+	static const vec2& up();
+
+	static const vec2& right();
 
 };
 std::ostream &operator<<(std::ostream &stream, const vec2 &vec);

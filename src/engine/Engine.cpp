@@ -93,3 +93,11 @@ Engine::Engine() {
 
 }
 
+int Engine::getWindowHeight() {
+	return windowHeight;
+}
+
+int Engine::getWindowWidth() {
+	return windowWidth;
+}
+

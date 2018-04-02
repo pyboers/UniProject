@@ -17,12 +17,14 @@ public:
 	/*
 	 * linear
 	 */
-	vec3 position, velocity, acceleration;
+	vec3 force, position, velocity;
+	// avoids dividing by mass every time we apply a force. We only do it when we integrate.
 	/*
 	 * angular
 	 */
-	vec3 aAcceleration, aVelocity;
-	quat a;
+	vec3 torque, angularMomentum, angularVelocity; //directly calculating momentum from
+	// torque avoids multiplying by inv_Tensor every time we apply a torque. We only multiply when integrating.
+	quat orientation;
 	/*
 	 * properties
 	 */
@@ -31,11 +33,9 @@ public:
 	float friction;
 	float restitution;
 
+	PhysicsWorld &world;
+
 public:
-	Body(vec3& position, PhysicsWorld& world);
-	Body(vec3& position, float mass, PhysicsWorld& world);
-	Body(vec3& position, float mass, float restitution, PhysicsWorld& world);
-	Body(vec3& position, float mass, float restitution, float friction, PhysicsWorld& world);
 	Body(vec3& position, float mass, mat3 inv_InertiaTensor, float restitution, float friction, PhysicsWorld& world);
 	~Body();
 
@@ -50,6 +50,10 @@ public:
 	void applyImpulse(const vec3& impulse);
 
 	vec3 getPointVelocity(const vec3& point);
+
+
+private:
+	vec3 angularMomentumToAngularVelocity()const;
 
 };
 #endif //UNIPROJECT_BODY_H

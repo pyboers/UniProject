@@ -251,6 +251,15 @@ vec2 vec2::perp(const vec2 &v1, float s)
 	return vec2(s * v1.y, -s * v1.x);
 }
 
+const vec2 &vec2::up() {
+	static vec2 up = vec2(0, 1);
+}
+
+const vec2 &vec2::right() {
+	static vec2 right = vec2(1, 0);
+	return right;
+}
+
 std::ostream &operator<<(std::ostream &stream, const vec2 &vec) {
 	stream << "< " << vec.getX() << ", " << vec.getY() << " >";
 	return stream;

@@ -11,6 +11,7 @@
 #include <gl/glew.h>
 #include <vector>
 #include "Scene.h"
+#include "Input.h"
 
 class Engine {
 private:
@@ -61,6 +62,9 @@ public:
 	 */
 	void start();
 	void stop();
+
+	int getWindowHeight();
+	int getWindowWidth();
 
 
 };
