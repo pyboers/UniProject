@@ -37,14 +37,14 @@ void Shape::calcCollisionInfo(const AABB &a1, const AABB &a2, vec3 **collisions,
 	float sWidth = a1.getDimensions().getX() + a2.getDimensions().getX();
 	float sHeight = a1.getDimensions().getY() + a2.getDimensions().getY();
 	float sDepth = a1.getDimensions().getZ() + a2.getDimensions().getZ();
-	float distancex = fabsf(a1.getPosition().getX() - a2.getPosition().getX());
-	float distancey = fabsf(a1.getPosition().getY() - a2.getPosition().getY());;
-	float distancez = fabsf(a1.getPosition().getZ() - a2.getPosition().getZ());;
-	if(distancex < sWidth && distancey < sHeight && distancez < sDepth){ //collision
-		if(distancex <= distancey && distancex <= distancez){ //X MTV
+	float distancex = fabsf(a1.getPosition().getX() - a2.getPosition().getX()) - sWidth;
+	float distancey = fabsf(a1.getPosition().getY() - a2.getPosition().getY()) - sHeight;
+	float distancez = fabsf(a1.getPosition().getZ() - a2.getPosition().getZ()) - sDepth;
+	if(distancex < 0 && distancey < 0 && distancez < 0){ //collision
+		if(distancex >= distancey && distancex >= distancez){ //X MTV
 			if(a1.getPosition().getX() < a2.getPosition().getX()){
 				(*collisions) = new vec3[3];
-				(*collisions)[0] = vec3(distancex, 0, 0);
+				(*collisions)[0] = vec3(-distancex, 0, 0);
 				(*collisions)[1] = vec3(-1, 0, 0);
 				(*collisions)[2] = a1.getPosition();
 				*count = 1;
@@ -57,7 +57,7 @@ void Shape::calcCollisionInfo(const AABB &a1, const AABB &a2, vec3 **collisions,
 				*count = 1;
 				return;
 			}
-		}else if(distancey <= distancex && distancey <= distancez){ //Y MTV
+		}else if(distancey >= distancex && distancey >= distancez){ //Y MTV
 			if(a1.getPosition().getY() < a2.getPosition().getY()){
 				(*collisions) = new vec3[3];
 				(*collisions)[0] = vec3(0, distancey, 0);

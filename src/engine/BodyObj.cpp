@@ -10,6 +10,5 @@ BodyObj::BodyObj(const Transform &transform, Mesh &mesh, Body &body) : Obj(trans
 
 void BodyObj::update(float dt) {
 	transform.setPos(body.position.getCopy(), this);
-	printf("POS: %f", body.position.getY());
 	transform.setRot(body.orientation.getCopy(), this);
 }

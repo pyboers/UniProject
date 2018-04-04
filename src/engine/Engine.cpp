@@ -57,7 +57,7 @@ void Engine::start() {
 		}
 		lastTick = currentTick;
 
-		printf("FRAMERATE: %f\n", 1/dt);
+		//printf("FRAMERATE: %f\n", 1/dt);
 
 		input.update();
 		if(input.isDown(KEY_ESCAPE)){
