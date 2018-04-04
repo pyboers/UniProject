@@ -4,6 +4,7 @@
 
 #include "Manifold.h"
 #include "../../../maths/MyMath.h"
+#include "../../../engine/Engine.h"
 
 Manifold::Manifold(Element &a, Element &b, vec3 *collisioninfo, int length) : BinaryConstraint(a, b) {
 	points.reserve(length/3);
@@ -11,6 +12,7 @@ Manifold::Manifold(Element &a, Element &b, vec3 *collisioninfo, int length) : Bi
 	for(i = 0; i < length; i++){
 		points.push_back(Collision(a.body, b.body, collisioninfo[i*3], collisioninfo[(i*3) + 1], collisioninfo[(i*3) + 2]));
 	}
+	friction = (a.body.friction + b.body.friction)/2;
 }
 
 void Manifold::update(float dt) { //Reset the accumulators
@@ -26,15 +28,12 @@ void Manifold::solve(float dt) {
 		vec3 relativeVelocity = b.body.getPointVelocity(c.pointB) - a.body.getPointVelocity(c.pointA);
 		float normalVel = relativeVelocity.dot(c.normal);
 
-		float j = ((((1 + (c.a.restitution*c.b.restitution))*normalVel) + getBiasImpulse(c, dt))*c.divisorN);
-
+		float j = ((((1)*normalVel) + getBiasImpulse(c, dt))*c.divisorN);
 		float nIS = c.normalImpulseSum;
-		printf("nIS: %f \n", nIS);
-		printf("J1: %f \n", j);
+
 		c.normalImpulseSum += j;
 		c.normalImpulseSum = c.normalImpulseSum < 0 ? 0 : c.normalImpulseSum;
 		j = c.normalImpulseSum - nIS;
-		printf("J2: %f \n", j);
 
 		vec3 impulseVector = c.normal * j;
 
@@ -49,12 +48,12 @@ void Manifold::solve(float dt) {
 		float bound = friction * c.normalImpulseSum;
 		//tangent1
 		{
+
 			vec3 relativeVelocity = b.body.getPointVelocity(c.pointB) - a.body.getPointVelocity(c.pointA);
 			float tangentVel = relativeVelocity.dot(c.tangent1);
-			float j = (((tangentVel) + getBiasImpulse(c, dt))*c.divisorT1);
+			float j = (tangentVel*c.divisorT1);
 			float tIS = c.tangentImpulseSum1;
-			c.tangentImpulseSum1 += j;
-			c.tangentImpulseSum1 = math::clamp(c.tangentImpulseSum1, -bound, bound);
+			c.tangentImpulseSum1 = math::clamp(c.tangentImpulseSum1 + j, -bound, bound);
 			j = c.tangentImpulseSum1 - tIS;
 
 			impulseVector1 = c.tangent1 * j;
@@ -63,11 +62,9 @@ void Manifold::solve(float dt) {
 		{
 			vec3 relativeVelocity = b.body.getPointVelocity(c.pointB) - a.body.getPointVelocity(c.pointA);
 			float tangentVel = relativeVelocity.dot(c.tangent2);
-
-			float j = (((tangentVel) + getBiasImpulse(c, dt))*c.divisorT2);
+			float j = (tangentVel*c.divisorT2);
 			float tIS = c.tangentImpulseSum2;
-			c.tangentImpulseSum2 += j;
-			c.tangentImpulseSum2 = math::clamp(c.tangentImpulseSum2, -bound, bound);
+			c.tangentImpulseSum2 = math::clamp(c.tangentImpulseSum2 + j, -bound, bound);
 			j = c.tangentImpulseSum2 - tIS;
 
 			impulseVector2 = c.tangent2 * j;

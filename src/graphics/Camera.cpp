@@ -2,7 +2,7 @@
 #include "../engine/Engine.h"
 
 Camera::Camera(float x, float y, float z, int width, int height, float fov, float znear, float zfar) 
-	: movespeed(2), horizontalangle(0), verticalangle(0.0), width(width), height(height),
+	: movespeed(4), horizontalangle(0), verticalangle(0.0), width(width), height(height),
 	mousespeed(0.01), transform(vec3(x, y, z)),  fov(fov), znear(znear), zfar(zfar) {
 }
 

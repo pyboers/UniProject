@@ -4,6 +4,7 @@
 #include <cstdio>
 #include "Shape.h"
 #include "AABB.h"
+#include "Boundless.h"
 
 /* AABB*/
 
@@ -28,8 +29,22 @@ Shape::Shape(vec3 position, quat rotation) : position(position), rotation(rotati
 }
 
 void Shape::getCollisionInfo(const Shape *s1, const Shape *s2, vec3 **collisions, int *count) {
-	if(s1->getType() == Type_AABB && s2->getType() == Type_AABB){
-		return calcCollisionInfo(*static_cast<const AABB*>(s1), *static_cast<const AABB*>(s2), collisions, count);
+	if(s1->getType() == Type_AABB){
+		if(s2->getType() == Type_AABB){
+			return calcCollisionInfo(*static_cast<const AABB*>(s1), *static_cast<const AABB*>(s2), collisions, count);
+
+		}
+		if(s2->getType() == Type_BOUNDLESS){
+			return calcCollisionInfo(*static_cast<const AABB*>(s1), *static_cast<const Boundless*>(s2), collisions, count);
+		}
+	}else if(s1->getType() == Type_BOUNDLESS){
+		if(s2->getType() == Type_AABB){
+			return calcCollisionInfo(*static_cast<const Boundless*>(s1), *static_cast<const AABB*>(s2), collisions, count);
+
+		}
+		if(s2->getType() == Type_BOUNDLESS){
+			return calcCollisionInfo(*static_cast<const Boundless*>(s1), *static_cast<const Boundless*>(s2), collisions, count);
+		}
 	}
 }
 
@@ -93,4 +108,29 @@ void Shape::calcCollisionInfo(const AABB &a1, const AABB &a2, vec3 **collisions,
 		}
 	}
 	*count = 0;
+}
+
+void Shape::calcCollisionInfo(const Boundless &a1, const Boundless &a2, vec3 **collisions, int *count) {
+	*count = 1;
+	(*collisions) = new vec3[3];
+	(*collisions)[0] = vec3(0, 0, 0);
+	(*collisions)[1] = vec3(0, 0, 0);
+	(*collisions)[2] = a2.position;
+}
+
+void Shape::calcCollisionInfo(const AABB &a1, const Boundless &b2, vec3 **collisions, int *count) {
+	calcCollisionInfo(b2, a1, collisions, count);
+	if (*count == 0) {
+		return;
+	}
+	(*collisions)[0].negate();
+	(*collisions)[1].negate();
+}
+
+void Shape::calcCollisionInfo(const Boundless &b1, const AABB &a2, vec3 **collisions, int *count) {
+	*count = 1;
+	(*collisions) = new vec3[3];
+	(*collisions)[0] = vec3(0, 0, 0);
+	(*collisions)[1] = vec3(0, 0, 0);
+	(*collisions)[2] = a2.position;
 }

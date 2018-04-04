@@ -6,33 +6,36 @@
 #include "../graphics/Mesh.h"
 #include "../engine/BodyObj.h"
 #include "../physics/shapes/AABB.h"
+#include "Environment.h"
 
 Mesh cube;
-
+Environment *environ;
 void SimpleScene::start() {
 	camera = new Camera(0, 0, 0, 1280, 720, 72, .1, 100);
 	basicShader = Shader::load("../res/shaders/reasonable.vs", "../res/shaders/reasonable.fs");
 	cube.loadModel("../res/models/cube.obj");
 	mat3 id = mat3();
 	//id.initIdentity();
-	pw = new PhysicsWorld(32,1);
+	pw = new PhysicsWorld(4,2);
 
+	environ = new Environment(*pw);
 	{
 		Body *b = new Body(*pw, id);
-		b->elements.push_back(new Element(*b, new AABB(vec3(0, 0, 0), vec3(0.5, 0.5, 0.5))));
 		b->velocity.setX(0);
-		b->position.setY(0.6f);
+		b->position.setY(-2);
 		b->inv_Mass = 0;
-		objects.push_back(new BodyObj(Transform(), cube, *b));
+		b->friction = 0.5f;
+		objects.push_back(new BodyObj(Transform(), cube, *b, vec3(100, 0.2, 100)));
 		pw->bodies.push_back(b);
 	}
-	{
+	for(int i = 0; i<200; i++) {
 		Body *b = new Body(*pw, id);
-		b->position.setX(-5);
-		b->elements.push_back(new Element(*b, new AABB(vec3(0,0,0), vec3(0.5,0.5,0.5))));
-		b->velocity.setX(1);
+		b->position.setX(rand()%10);
+		b->position.setY(i);
+		b->position.setZ(-5);
 		b->inv_Mass = 1;
-		objects.push_back(new BodyObj(Transform(), cube, *b));
+		b->friction = 0.5f;
+		objects.push_back(new BodyObj(Transform(), cube, *b, vec3(0.5, 0.5, 0.5)));
 		pw->bodies.push_back(b);
 	}
 
@@ -44,6 +47,7 @@ void SimpleScene::stop() {
 	delete camera;
 	delete basicShader;
 	delete pw;
+	delete environ;
 }
 
 void SimpleScene::input(float dt) {
@@ -52,7 +56,6 @@ void SimpleScene::input(float dt) {
 
 void SimpleScene::update(float dt) {
 	camera->update(dt);
-	pw->bodies[1]->velocity.setX(10);
 	pw->update(dt);
 	for(Obj* obj : objects){
 		obj->update(dt);

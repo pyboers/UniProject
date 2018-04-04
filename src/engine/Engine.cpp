@@ -57,7 +57,9 @@ void Engine::start() {
 		}
 		lastTick = currentTick;
 
-		//printf("FRAMERATE: %f\n", 1/dt);
+		if(currentTick % 100 == 0){
+			printf("FRAMERATE: %f\n", 1/dt);
+		}
 
 		input.update();
 		if(input.isDown(KEY_ESCAPE)){

@@ -10,9 +10,10 @@
 #include "../../maths/quat.h"
 
 enum shapeType {
-	Type_AABB
+	Type_AABB, Type_BOUNDLESS
 };
 class AABB;
+class Boundless;
 class Shape{
 protected:
 	vec3 position;
@@ -50,6 +51,12 @@ public:
 
 	/* AABB*/
 	static void calcCollisionInfo(const AABB &a1, const AABB &a2, vec3 **collisions, int *count);
+	static void calcCollisionInfo(const AABB &a1, const Boundless &b2, vec3 **collisions, int *count);
+
+	/* Boundless*/
+
+	static void calcCollisionInfo(const Boundless &b1, const AABB &a2, vec3 **collisions, int *count);
+	static void calcCollisionInfo(const Boundless &a1, const Boundless &a2, vec3 **collisions, int *count);
 
 
 };

@@ -11,8 +11,8 @@
 
 class BinaryConstraint : public Constraint{
 protected:
-	Element &a, &b;
 public:
+	Element &a, &b;
 	BinaryConstraint(Element &a, Element&b) : a(a), b(b){}
 };
 #endif //UNIPROJECT_BINARYCONSTRAINT_H
