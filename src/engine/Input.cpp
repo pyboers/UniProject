@@ -6,14 +6,14 @@
 
 
 Input::Input() {
-	memset(pressed, 0, MAX_INPUT);
-	memset(down, 0, MAX_INPUT);
-	memset(released, 0, MAX_INPUT);
+	memset(pressed, 0, MAX_INPUT_COUNT );
+	memset(down, 0, MAX_INPUT_COUNT);
+	memset(released, 0, MAX_INPUT_COUNT);
 }
 
 void Input::clear() {
-	memset(pressed, 0, MAX_INPUT);
-	memset(released, 0, MAX_INPUT);
+	memset(pressed, 0, MAX_INPUT_COUNT);
+	memset(released, 0, MAX_INPUT_COUNT);
 
 	down[MOUSE_WHEEL_UP] = 0; //Wheel can't be held
 	down[MOUSE_WHEEL_DOWN] = 0;
@@ -22,15 +22,15 @@ void Input::clear() {
 	m_dy = 0;
 }
 
-bool Input::isPressed(Input::_Input input) const {
+bool Input::isPressed(_Input input) const {
 	return pressed[input];
 }
 
-bool Input::isDown(Input::_Input input) const {
+bool Input::isDown(_Input input) const {
 	return down[input];
 }
 
-bool Input::isReleased(Input::_Input input) const {
+bool Input::isReleased(_Input input) const {
 	return released[input];
 }
 
@@ -50,10 +50,13 @@ int Input::getMouseDY() const {
 	return m_dy;
 }
 
-void Input::update(SDL_Event event) {
-	clear();
-	while (SDL_PollEvent(&event) != 0) {
-		if (event.type == SDL_KEYDOWN
+void Input::update() {
+    clear();
+	SDL_Event event;
+	while (SDL_PollEvent(&event)) {
+		if(event.type == SDL_QUIT){
+			Engine::getEngine().stop();
+		}else if (event.type == SDL_KEYDOWN
 				   && event.key.repeat == 0) {
 
 			down[event.key.keysym.scancode] = true;

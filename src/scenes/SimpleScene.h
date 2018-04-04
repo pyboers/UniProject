@@ -9,10 +9,14 @@
 #include "../engine/Scene.h"
 #include "../graphics/Camera.h"
 #include "../graphics/Shader.h"
+#include "../physics/PhysicsWorld.h"
+#include "../engine/Obj.h"
 
 class SimpleScene : public Scene{
 	Camera *camera;
 	Shader *basicShader;
+	PhysicsWorld *pw;
+	std::vector<Obj*> objects;
 public:
 	void start() override;
 	void stop() override;

@@ -10,6 +10,7 @@
 #include "Constraint.h"
 
 class ConstraintSolver{
+public:
 	virtual void solve(std::vector<Constraint*>& constraints, float dt) = 0;
 };
 #endif //UNIPROJECT_CONSTRAINTSOLVER_H

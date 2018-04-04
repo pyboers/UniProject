@@ -25,7 +25,7 @@ void Manifold::solve(float dt) {
 	for (auto &c : points) {
 		vec3 relativeVelocity = b.body.getPointVelocity(c.pointB) - a.body.getPointVelocity(c.pointA);
 		float normalVel = relativeVelocity.dot(c.normal);
-
+		
 		float j = ((((1 + (c.a.restitution*c.b.restitution))*normalVel) + getBiasImpulse(c, dt))*c.divisorN);
 		float nIS = c.normalImpulseSum;
 		c.normalImpulseSum += j;

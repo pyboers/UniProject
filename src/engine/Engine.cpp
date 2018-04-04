@@ -4,6 +4,7 @@
 #include <SDL_timer.h>
 #include <SDL_video.h>
 #include <SDL.h>
+#include <zconf.h>
 #include "Engine.h"
 
 Engine::~Engine() {
@@ -32,25 +33,36 @@ void Engine::pushScene(Scene *scene) {
 Scene *Engine::popScene() {
 	Scene *scene = scenes.back(); //get scene
 	scenes.pop_back(); //pop scene of the stack
+	if(!scenes.empty()){
+		scenes.back()->resume();
+	}
 	return scene;
 }
 
+
+#define MAX_FRAMERATE 60
 void Engine::start() {
 	mainLoop = true;
 	long lastTick = SDL_GetTicks();
 
 	// main loop
 	while (mainLoop) {
-		SDL_Event e;
-		while(SDL_PollEvent(&e) != 0){
-			if(e.type == SDL_QUIT){
-				 stop();
-			}
-		}
 		long currentTick = SDL_GetTicks();
-		float dt = (currentTick - lastTick)/1000.0f;
+		int dTick = (currentTick - lastTick);
+		float dt = dTick/1000.0f;
+		if(dTick < 1000/MAX_FRAMERATE){ //We are too fast. Slow down
+			SDL_Delay(1000/MAX_FRAMERATE - dTick);
+			dt = 1.0/MAX_FRAMERATE;
+			currentTick = SDL_GetTicks();
+		}
+		lastTick = currentTick;
 
-		//update input
+		printf("FRAMERATE: %f\n", 1/dt);
+
+		input.update();
+		if(input.isDown(KEY_ESCAPE)){
+			stop();
+		}
 		if(!scenes.empty()) {
 			Scene *currentScene = scenes.back();
 			currentScene->input(dt);
@@ -63,6 +75,7 @@ void Engine::start() {
 
 void Engine::stop() {
 	mainLoop = false;
+	printf("MEMSET HAS POWERS");
 }
 
 void Engine::init(int windowWidth, int windowHeight) {
@@ -84,9 +97,10 @@ void Engine::init(int windowWidth, int windowHeight) {
 	}
 
 
-	SDL_GL_SetSwapInterval(0);//sync window cycle
+	SDL_GL_SetSwapInterval(1);//sync window cycle
 	SDL_ShowWindow(window);
 	glFrontFace(GL_CCW);
+	SDL_SetRelativeMouseMode(SDL_TRUE);
 }
 
 Engine::Engine() {
@@ -99,5 +113,9 @@ int Engine::getWindowHeight() {
 
 int Engine::getWindowWidth() {
 	return windowWidth;
+}
+
+const Input &Engine::getInput() {
+	return input;
 }
 

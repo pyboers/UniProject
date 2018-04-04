@@ -13,11 +13,13 @@
 
 class PhysicsWorld{
 protected:
-	std::vector<Body*> bodies;
 	ConstraintSolver *solver;
 	CollisionDetector *collisionDetector;
+	std::vector<Constraint*> constraints;
+	int frequency;
 
 public:
+	std::vector<Body*> bodies;
 	PhysicsWorld(int count, int frequency);
 	~PhysicsWorld();
 

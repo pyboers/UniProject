@@ -29,6 +29,9 @@ void Body::applyImpulse(const vec3 &impulse) {
 void Body::update(float dt) {
 	position += velocity * dt;
 	orientation *= quat::fromEuler(angularVelocity * dt);
+	for (Element *e : elements) {
+		e->update();
+	}
 }
 
 void Body::integrate(float dt) {
@@ -43,12 +46,14 @@ vec3 Body::angularMomentumToAngularVelocity() const {
 	return orientation.rotatedVec3(inv_InertiaTensor * (orientation.inverse().rotatedVec3(angularMomentum)));
 }
 
-Body::Body(vec3 &position, float mass, mat3 inv_InertiaTensor, float restitution, float friction, PhysicsWorld &world)
+Body::Body(PhysicsWorld& world, mat3 inv_InertiaTensor, const vec3& position, float mass, float restitution, float friction)
 : position(position), inv_InertiaTensor(inv_InertiaTensor), restitution(restitution), friction(friction),
 world(world) {
 	this->inv_Mass = mass == 0? 0 : 1/mass;
 }
 
 Body::~Body() {
-
+	for(Element *e : elements){
+		delete e;
+	}
 }

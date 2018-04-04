@@ -15,8 +15,9 @@
 
 class Engine {
 private:
-	std::vector<Scene *> scenes;
 	bool mainLoop = false;
+	Input input;
+	std::vector<Scene *> scenes;
 	SDL_Window *window;
 	int windowWidth, windowHeight;
 	Engine();
@@ -65,6 +66,8 @@ public:
 
 	int getWindowHeight();
 	int getWindowWidth();
+
+	const Input& getInput();
 
 
 };

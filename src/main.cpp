@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <gl/glew.h>
+#include <zconf.h>
 #include "engine/Engine.h"
 #include "scenes/SimpleScene.h"
 
@@ -34,4 +35,5 @@ int main() {
     e.init(1280, 720);
     e.pushScene(new SimpleScene());
     e.start();
+
 }

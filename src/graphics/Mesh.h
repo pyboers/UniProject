@@ -15,13 +15,17 @@ class Mesh {
 
 	static GLuint indexingvao;
 public:
-	~Mesh();
+	Mesh(Mesh &mesh) = delete;
+	Mesh();
+	~Mesh(); //THIS WILL PREVENT MULTIPLE COPIES. BEWARE!
 	void load(GLfloat vertices[], GLuint indices[], GLuint vsize, GLuint isize, GLenum target);
 	void draw();
 	void loadModel(char *filename);
 
 	static Mesh * generateRectangularPrism();
 
-	static void indexCall(int size); 
+	static void indexCall(int size);
+
+	GLuint getVAOID() const;
 };
 #endif

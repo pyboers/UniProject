@@ -38,6 +38,7 @@ protected:
 public:
 	explicit CollisionDetector(std::vector<Body*>& bodies) : bodies(bodies){}
 
-	virtual Manifold* detectCollisions() = 0;
+	virtual std::vector<Constraint*> detectCollisions() = 0;
+	virtual void update() = 0;
 };
 #endif //UNIPROJECT_COLLISIONDETECTOR_H

@@ -1,5 +1,4 @@
 #include "Shader.h"
-
 Shader::~Shader() {
 	glDeleteProgram(vsId);
 	glDeleteProgram(fsId);

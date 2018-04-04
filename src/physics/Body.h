@@ -6,9 +6,11 @@
 #ifndef UNIPROJECT_BODY_H
 #define UNIPROJECT_BODY_H
 
+#include <vector>
 #include "../maths/vec3.h"
 #include "../maths/mat3.h"
 #include "../maths/quat.h"
+#include "Element.h"
 
 class PhysicsWorld;
 
@@ -36,7 +38,10 @@ public:
 	PhysicsWorld &world;
 
 public:
-	Body(vec3& position, float mass, mat3 inv_InertiaTensor, float restitution, float friction, PhysicsWorld& world);
+
+	std::vector<Element*> elements;
+
+	Body(PhysicsWorld& world, mat3 inv_InertiaTensor, const vec3& position = vec3(0), float mass = 1, float restitution = 0, float friction = 0.5f);
 	~Body();
 
 
