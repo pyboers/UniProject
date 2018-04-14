@@ -102,7 +102,8 @@ void Engine::init(int windowWidth, int windowHeight) {
 	SDL_GL_SetSwapInterval(1);//sync window cycle
 	SDL_ShowWindow(window);
 	glFrontFace(GL_CCW);
-	SDL_SetRelativeMouseMode(SDL_TRUE);
+	this->windowWidth = windowWidth;
+	this->windowHeight = windowHeight;
 }
 
 Engine::Engine() {

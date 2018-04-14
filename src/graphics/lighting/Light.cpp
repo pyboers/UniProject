@@ -1,5 +1,5 @@
 #include "Light.h"
-Light::Light(int Id, float intensity, vec3 pos, vec3 diffuseCoefficient, vec3 specularCoefficient, vec3 attenuation)  : Id(Id), intensity(intensity), pos(pos), diffuseCoefficient(diffuseCoefficient), specularCoefficient(specularCoefficient), attenuation(attenuation){
+Light::Light(int Id, float intensity, vec3 pos, vec3 diffuseCoefficient, vec3 attenuation)  : Id(Id), intensity(intensity), pos(pos), diffuseCoefficient(diffuseCoefficient), attenuation(attenuation){
 	if (Id > MAX_LIGHTS) {
 		printf("Error Light Id: %d is more than MAX_LIGHTS: %d", Id, MAX_LIGHTS);
 	}
@@ -17,9 +17,6 @@ void Light::updateShader(Shader * s) {
 	strcpy(var, buf);
 	strcat(var, "intensity");
 	s->uniformf(var, intensity);
-	strcpy(var, buf);
-	strcat(var, "specularCoefficient");
-	s->uniformVec3(var, &specularCoefficient);
 	strcpy(var, buf);
 	strcat(var, "att");
 	s->uniformVec3(var, &attenuation);

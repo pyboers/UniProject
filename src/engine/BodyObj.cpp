@@ -5,7 +5,7 @@
 #include "BodyObj.h"
 #include "../physics/shapes/AABB.h"
 
-BodyObj::BodyObj(const Transform &transform, Mesh &mesh, Body &body, vec3 scale) : Obj(transform, mesh), body(body) {
+BodyObj::BodyObj(const Transform &transform, Mesh &mesh, Texture* t, Body &body, vec3 scale) : Obj(transform, mesh, t), body(body) {
 	body.elements.push_back(new Element(body, new AABB(vec3(0, 0, 0), scale)));
 	this->transform.setScale(scale *2 , this);
 }

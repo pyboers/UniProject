@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Environment.h"
 #include "../physics/shapes/Boundless.h"
+#include "../engine/Engine.h"
 
 
 Environment::Environment(PhysicsWorld& pw) : ElementListener(){
@@ -23,13 +24,13 @@ bool Environment::onCollide(const Manifold &m, bool isA) {
 	vec3 gravity = vec3(0, -50.81f, 0);
 	Element &e = isA ? m.b : m.a;
 	Body &other = e.body;
-	if (other.inv_Mass != 0) {
-		other.applyForce(gravity);
-		if(i%1000 == 0){
-			other.applyForce(vec3(i%1600, 1000, -i%1600));
-		}else if(i%500 == 0){
-			other.applyForce(vec3(-i%1600, 1000, i%1600));
-		}
+	if (other.inv_Mass != 0 && !Engine::getEngine().getInput().isDown(KEY_T)) {
+		other.applyForce(gravity / other.inv_Mass);
+//		if(i%1000 == 0){
+//			other.applyForce(vec3(i%600, 500, -i%500));
+//		}else if(i%500 == 0){
+//			other.applyForce(vec3(-i%600, 500, i%500));
+//		}
 	}
 	return false;
 }

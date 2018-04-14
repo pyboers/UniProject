@@ -7,6 +7,7 @@
 #define UNIPROJECT_PHYSICSWORLD_H
 
 #include <vector>
+#include <unordered_set>
 #include "Body.h"
 #include "constraints/ConstraintSolver.h"
 #include "constraints/manifold/CollisionDetector.h"
@@ -15,8 +16,10 @@ class PhysicsWorld{
 protected:
 	ConstraintSolver *solver;
 	CollisionDetector *collisionDetector;
+	std::vector<Constraint *> past;
 	std::vector<Constraint*> constraints;
 	int frequency;
+
 
 public:
 	std::vector<Body*> bodies;

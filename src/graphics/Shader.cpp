@@ -1,4 +1,5 @@
 #include "Shader.h"
+#include <unistd.h>
 Shader::~Shader() {
 	glDeleteProgram(vsId);
 	glDeleteProgram(fsId);
@@ -10,6 +11,9 @@ static int loadFileInto(char * dest, char * name) {
 	FILE *f = fopen(name, "r"); 
 	if (!f) {
 		printf("File won't say hello to world %s\n", name);
+		char buffer[1024];
+		getcwd(buffer, 1024);
+		printf("LOG: %s\n", buffer);
 		return NULL;
 	}
 	while (fgets(buff, 0xFF, f)) {

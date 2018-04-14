@@ -13,6 +13,8 @@ class Collision{
 protected:
 	Body &a;
 	Body &b;
+public:
+
 	vec3 normal, mtv, tangent1, tangent2;
 	vec3 pointA, pointB;
 	float normalImpulseSum, tangentImpulseSum1, tangentImpulseSum2;

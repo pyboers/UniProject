@@ -5,13 +5,15 @@
 #include "Obj.h"
 #include "../graphics/Shader.h"
 
-Obj::Obj(Transform transform, Mesh &mesh) : transform(transform), mesh(mesh){
+Obj::Obj(Transform transform, Mesh &mesh, Texture* t) : transform(transform), mesh(mesh), texture(t){
 
 }
 
 void Obj::render(Shader& shader) {
 	mat4 model = transform.getMatrix();
 	shader.uniformMat4("model", &model);
+	texture->bind(0);
+	shader.uniformi("diffuseMap", 0);
 	mesh.draw();
 }
 

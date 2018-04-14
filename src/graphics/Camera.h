@@ -8,15 +8,16 @@
 #include "../maths/Transform.h"
 
 class Camera {
+
+public:
+	float horizontalangle;
+	float verticalangle;
 	int width, height;
 	float fov;
 	float znear;
 	float zfar;
 	float mousespeed;
 	float movespeed;
-	
-
-public:	
 	Transform transform;
 	void update(float dt);
 	Camera(float, float, float, int, int, float ,float ,float);
@@ -26,11 +27,6 @@ public:
 	mat4 getProjectionMatrix();
 	mat4 getViewProjection();
 	~Camera();
-
-
-private:
-	float horizontalangle;
-	float verticalangle;
 
 };
 #endif

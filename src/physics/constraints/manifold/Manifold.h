@@ -12,9 +12,10 @@
 
 class Manifold : public BinaryConstraint{
 protected:
-	std::vector<Collision> points;
 	float friction;
 public:
+	int persistance = 0;
+	std::vector<Collision> points;
 	Manifold(Element &a, Element &b, vec3* collisioninfo, int length);
 
 	static float getBiasImpulse(const Collision& c, float dt) {

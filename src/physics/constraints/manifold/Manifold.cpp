@@ -12,15 +12,19 @@ Manifold::Manifold(Element &a, Element &b, vec3 *collisioninfo, int length) : Bi
 	for(i = 0; i < length; i++){
 		points.push_back(Collision(a.body, b.body, collisioninfo[i*3], collisioninfo[(i*3) + 1], collisioninfo[(i*3) + 2]));
 	}
-	friction = (a.body.friction + b.body.friction)/2;
+	if(a.body.friction == 0 || b.body.friction == 0){
+		friction = 0;
+	}else{
+		friction = (a.body.friction + b.body.friction)/2;
+	}
 }
 
 void Manifold::update(float dt) { //Reset the accumulators
-	for (auto &c : points) {
-		c.normalImpulseSum = 0;
-		c.tangentImpulseSum1 = 0;
-		c.tangentImpulseSum2 = 0;
-	}
+//	for (auto &c : points) {
+//		c.normalImpulseSum = 0;
+//		c.tangentImpulseSum1 = 0;
+//		c.tangentImpulseSum2 = 0;
+//	}
 }
 
 void Manifold::solve(float dt) {
@@ -28,9 +32,10 @@ void Manifold::solve(float dt) {
 		vec3 relativeVelocity = b.body.getPointVelocity(c.pointB) - a.body.getPointVelocity(c.pointA);
 		float normalVel = relativeVelocity.dot(c.normal);
 
-		float j = ((((1)*normalVel) + getBiasImpulse(c, dt))*c.divisorN);
-		float nIS = c.normalImpulseSum;
+		normalVel += getBiasImpulse(c, dt); //-Target impulse
 
+		float j = normalVel*c.divisorN;
+		float nIS = c.normalImpulseSum;
 		c.normalImpulseSum += j;
 		c.normalImpulseSum = c.normalImpulseSum < 0 ? 0 : c.normalImpulseSum;
 		j = c.normalImpulseSum - nIS;

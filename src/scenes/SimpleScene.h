@@ -11,12 +11,14 @@
 #include "../graphics/Shader.h"
 #include "../physics/PhysicsWorld.h"
 #include "../engine/Obj.h"
+#include "../graphics/renderstage/RenderPipeline.h"
+#include "../graphics/renderstage/SimpleRenderPipeline.h"
 
 class SimpleScene : public Scene{
 	Camera *camera;
-	Shader *basicShader;
 	PhysicsWorld *pw;
 	std::vector<Obj*> objects;
+	SimpleRenderPipeline rp;
 public:
 	void start() override;
 	void stop() override;

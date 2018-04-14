@@ -9,13 +9,15 @@
 #include "../graphics/Mesh.h"
 #include "../maths/Transform.h"
 #include "../graphics/Shader.h"
+#include "../graphics/Texture.h"
 
 class Obj {
 protected:
 	Transform transform;
 	Mesh &mesh;
+	Texture *texture;
 public:
-	Obj(Transform transform, Mesh &mesh);
+	Obj(Transform transform, Mesh &mesh, Texture *t);
 	virtual void update(float dt);
 	void render(Shader& shader);
 

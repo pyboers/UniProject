@@ -166,9 +166,9 @@ mat4* mat4::initRotation(const vec3& forward, const vec3& up, const vec3& right)
 mat4* mat4::initLookAt(const vec3& forward, const vec3& up, const vec3& pos)
 {
 	initRotation(forward, up);
-	data[12] = pos.getX();
-	data[13] = pos.getY();
-	data[14] = pos.getZ();
+	data[3] = pos.getX();
+	data[7] = pos.getY();
+	data[11] = pos.getZ();
 	return this;
 }
 

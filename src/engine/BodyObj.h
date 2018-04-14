@@ -12,7 +12,7 @@
 class BodyObj : public Obj{
 	Body &body;
 public:
-	BodyObj(const Transform &transform, Mesh &mesh, Body& body, vec3 scale);
+	BodyObj(const Transform &transform, Mesh &mesh, Texture* t, Body& body, vec3 scale);
 
 	void update(float dt) override;
 
