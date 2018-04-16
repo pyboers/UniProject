@@ -12,7 +12,7 @@ class SlowBroadPhase : public CollisionDetector{
 public:
 	explicit SlowBroadPhase(std::vector<Body *> &bodies);
 
-	std::vector<Constraint*> detectCollisions() override;
+	std::vector<Constraint*> collisionDetection() override;
 
 	void update() override;
 

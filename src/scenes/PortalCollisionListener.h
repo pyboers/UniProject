@@ -10,7 +10,8 @@
 
 class PortalCollisionListener : public ElementListener{
 
-	bool onCollide(const Manifold& m, bool isA) override;
+	bool onCollide(Manifold& m, bool isA) override;
+	bool onCollideStart(Manifold& m, bool isA) override;
 };
 
 

@@ -16,10 +16,10 @@ out vec3 vpos;
 out vec3 scoord;
 
 void main(void) {
-	vpos = (model * vec4(vertex, 1)).xyz;
+	vpos = (portalV * model * vec4(vertex, 1)).xyz;
 	gl_Position =  vp * vec4(vpos, 1);
 	tcoord = texCoord;
 	norm = normal;
 	scoord = (depthvp * vec4(vpos, 1) * 0.5 + 0.5).xyz;
-	gl_ClipDistance[0] = 1;
+	gl_ClipDistance[0] = dot(vec4(vpos, -1), clipPlane);
 }

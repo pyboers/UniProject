@@ -21,10 +21,10 @@ protected:
 			if(count > 0){
 				Manifold *m = new Manifold(a, b, collisioninfo, count);
 				for(ElementListener *elementListener : a.getListeners()){
-					solve &= elementListener->onCollide(*m, true);
+					solve &= elementListener->onCollision(*m, true);
 				}
 				for(ElementListener *elementListener : b.getListeners()){
-					solve &= elementListener->onCollide(*m, false);
+					solve &= elementListener->onCollision(*m, false);
 				}
 				if(solve){
 					delete[] collisioninfo;
@@ -38,7 +38,19 @@ protected:
 public:
 	explicit CollisionDetector(std::vector<Body*>& bodies) : bodies(bodies){}
 
-	virtual std::vector<Constraint*> detectCollisions() = 0;
+	virtual std::vector<Constraint*> collisionDetection() = 0;
+
+	std::vector<Constraint*> detectCollisions(){
+		for(auto *body : bodies){
+			for(auto* element : body->elements){
+				for(auto* elementlistener : element->getListeners()){
+					elementlistener->update();
+				}
+			}
+		}
+		return collisionDetection();
+	}
+
 	virtual void update() = 0;
 };
 #endif //UNIPROJECT_COLLISIONDETECTOR_H

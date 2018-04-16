@@ -6,7 +6,7 @@
 
 SlowBroadPhase::SlowBroadPhase(std::vector<Body *> &bodies) : CollisionDetector(bodies) {}
 
-std::vector<Constraint *> SlowBroadPhase::detectCollisions() {
+std::vector<Constraint *> SlowBroadPhase::collisionDetection() {
 	std::vector<Constraint*> manifolds;
 	int i, j;
 	for (i = 0; i < bodies.size() - 1; i++) {

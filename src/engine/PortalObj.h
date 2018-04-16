@@ -9,13 +9,17 @@
 #include "../maths/Transform.h"
 #include "../graphics/Mesh.h"
 #include "Obj.h"
+#include "BodyObj.h"
 
 class PortalObj : public Obj{
 public:
 	PortalObj* bound;
-	explicit PortalObj(const Transform &transform, Mesh& mesh, Texture *texture);
+	Body &body;
+	explicit PortalObj(const Transform &transform, Mesh& mesh, Texture *texture, Body& body);
 
 	void bindPortal(PortalObj *bound);
+
+	void update();
 };
 
 

@@ -64,7 +64,7 @@ void SceneStage::render() {
 		portal->bound->getTransform().setScale(saveScale, nullptr);
 
 		portalSceneShader->bind();
-		portalSceneShader->uniformMat4("PortalV", &view);
+		portalSceneShader->uniformMat4("portalV", &view);
 		mat4 viewprojection = camera->getProjectionMatrix();
 		viewprojection *= camera->getViewMatrix();
 		portalSceneShader->uniformMat4("vp", &viewprojection);
@@ -72,10 +72,9 @@ void SceneStage::render() {
 		portalSceneShader->uniformVec3("viewpos", &campos);
 
 		glEnable(GL_CLIP_PLANE0);
-		vec3 z = vec3(0, 0, 1);
+		vec3 z = vec3(0, 0, -1);
 		z = portal->getTransform().getRot().rotatedVec3(z);
 		vec4 plane = vec4(z.getX(), z.getY(), z.getZ(), z.dot(portal->getTransform().getPos()));
-		printf("X: %f, Y: %f, Z: %f\n", plane.getX(), plane.getY(), plane.getZ());
 		portalSceneShader->uniformVec4("clipPlane", &plane);
 		for(auto* obj: *pipeline->objects){
 			obj->render(*portalSceneShader);

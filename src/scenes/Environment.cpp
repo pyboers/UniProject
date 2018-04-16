@@ -18,7 +18,7 @@ Environment::Environment(PhysicsWorld& pw) : ElementListener(){
 	body->elements.push_back(env);
 }
 int i = 0;
-bool Environment::onCollide(const Manifold &m, bool isA) {
+bool Environment::onCollide(Manifold &m, bool isA) {
 	i++;
 	float drag = 0.8f;
 	vec3 gravity = vec3(0, -50.81f, 0);
@@ -33,4 +33,8 @@ bool Environment::onCollide(const Manifold &m, bool isA) {
 //		}
 	}
 	return false;
+}
+
+bool Environment::onCollideStart(Manifold &m, bool isA) {
+	onCollide(m, isA);
 }

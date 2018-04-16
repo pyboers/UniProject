@@ -43,7 +43,7 @@ void SimpleScene::start() {
 		b->position.setY(-4);
 		b->inv_Mass = 0;
 		b->friction = 0.5f;
-		objects.push_back(new BodyObj(Transform(), cube, grass, *b, vec3(100, 4, 100)));
+		objects.push_back(new BodyObj(Transform(0, vec3(100*2, 4*2, 100*2)), cube, grass, *b));
 		pw->bodies.push_back(b);
 	}
 	for(int i = 0; i<100; i++) {
@@ -54,9 +54,9 @@ void SimpleScene::start() {
 		b->inv_Mass = 1;
 		b->friction = 0.5f;
 		if(rand()%10 > 5){
-			objects.push_back(new BodyObj(Transform(), cube, wood, *b, vec3(0.5, 0.5, 0.5)));
+			objects.push_back(new BodyObj(Transform(), cube, wood, *b));
 		}else{
-			objects.push_back(new BodyObj(Transform(), cube, wood2, *b, vec3(0.5, 0.5, 0.5)));
+			objects.push_back(new BodyObj(Transform(), cube, wood2, *b));
 		}
 
 		pw->bodies.push_back(b);
@@ -70,8 +70,15 @@ void SimpleScene::start() {
 	body->elements.push_back(e);
 	pw->bodies.push_back(body);
 
-	PortalObj* p1 = new PortalObj(Transform(vec3(0, 1, -4), vec3(1, 2, 0.3)), portal, wood);
-	PortalObj* p2 = new PortalObj(Transform(vec3(0, 1, 0), vec3(1, 2, 0.3)), portal, wood2);
+	Body *p1body = new Body(*pw, id);
+	p1body->position = vec3(0, 1, -4);
+	pw->bodies.push_back(p1body);
+	Body *p2body = new Body(*pw, id);
+	p2body->position = vec3(0, 1, 0);
+	pw->bodies.push_back(p2body);
+	PortalObj* p1 = new PortalObj(Transform(vec3(0, 1, -4), vec3(1, 2, 0.3)), portal, wood, *p1body);
+	PortalObj* p2 = new PortalObj(Transform(vec3(0, 1, 0), vec3(1, 2, 0.3)), portal, wood2, *p2body);
+
 	p2->getTransform().setRot(quat::fromEulerDeg(vec3(0, 0, 0)), this);
 	p1->getTransform().setRot(quat::fromEulerDeg(vec3(0, 45, 0)), this);
 	p1->bindPortal(p2);

@@ -12,7 +12,8 @@ class Environment : public ElementListener{
 protected:
 public:
 	explicit Environment(PhysicsWorld& pw);
-	bool onCollide(const Manifold& m, bool isA) override;
+	bool onCollide(Manifold& m, bool isA) override;
+	bool onCollideStart(Manifold& m, bool isA) override;
 };
 
 

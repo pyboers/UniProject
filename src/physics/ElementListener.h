@@ -5,22 +5,23 @@
 #pragma once
 #ifndef UNIPROJECT_ELEMENTLISTENER_H
 #define UNIPROJECT_ELEMENTLISTENER_H
-
+#include <stdio.h>
+#include <unordered_map>
+class Element;
 class Manifold;
 class ElementListener{
+private:
+	std::unordered_map<Element*, int> collisions;
 public:
-//	bool colliding;
-	ElementListener(){}
+	ElementListener(){
 
-//	void update(const Manifold& m, bool isA){
-//		onCollide(m, isA);
-//		if(colliding){
-//			onCollideStart(m, isA);
-//		}
-//	}
+	}
 
-	virtual bool onCollide(const Manifold& m, bool isA) = 0;
-//	virtual bool onCollideStart(const Manifold& m, bool isA) = 0;
-//	virtual bool onCollideEnd(const Manifold& m, bool isA) = 0;
+	void update();
+
+	bool onCollision(Manifold& m, bool isA);
+
+	virtual bool onCollide(Manifold& m, bool isA) = 0;
+	virtual bool onCollideStart(Manifold& m, bool isA) = 0;
 };
 #endif //UNIPROJECT_ELEMENTLISTENER_H

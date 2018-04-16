@@ -4,8 +4,11 @@
 
 #include "PortalCollisionListener.h"
 #include "../physics/constraints/manifold/Manifold.h"
-bool PortalCollisionListener::onCollide(const Manifold &m, bool isA) {
-	Element other = isA ? m.b : m.a;
+bool PortalCollisionListener::onCollide(Manifold &m, bool isA) {
+	return false;
+}
 
-
+bool PortalCollisionListener::onCollideStart(Manifold &m, bool isA) {
+	printf("Tada\n");
+	return false;
 }
