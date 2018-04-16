@@ -5,7 +5,7 @@
 
 Transform::Transform() : pos(0, 0, 0), rot(1, 0, 0, 0), scale(1), changed(true) {}
 
-Transform::Transform(vec3 pos) : pos(pos), rot(1, 0, 0, 1), scale(1), changed(true) {}
+Transform::Transform(vec3 pos) : pos(pos), rot(1, 0, 0, 0), scale(1), changed(true) {}
 
 Transform::Transform(vec3 pos, vec3 scale) : pos(pos), rot(quat(1, 0, 0, 0)), scale(scale), changed(true) {}
 

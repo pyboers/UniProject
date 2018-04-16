@@ -16,15 +16,19 @@ Body *body;
 Texture *wood;
 Texture *wood2;
 Texture *grass;
+Mesh portal;
+std::vector<PortalObj* >portals;
 void SimpleScene::start() {
 	camera = new Camera(0, 0, 0, 1280, 720, 72, .1, 100);
 	rp.setCamera(camera);
 
 	cube.loadModel("../res/models/box2.obj");
+	portal.loadModel("../res/models/portal.obj");
 	mat3 id = mat3();
-	rp.addLight(new Light(0, 1, vec3(0, 4, 0), vec3(1, 0.6, 0), vec3(1, 0.1, 0.01)));
-	rp.addLight(new Light(1, 1, vec3(3, 4, 20), vec3(0, .6, 1), vec3(1, 0.1, 0.01)));
+//	rp.addLight(new Light(0, 1, vec3(0, 4, 0), vec3(1, 0.6, 0), vec3(1, 0.1, 0.01)));
+//	rp.addLight(new Light(1, 1, vec3(3, 4, 20), vec3(0, .6, 1), vec3(1, 0.1, 0.01)));
 	rp.setDirectionalLight(new DirectionalLight(vec3(-2, -10, 5), vec3(0.3f, 0.7, 0.5), vec3(1, 1, 1), 5));
+//	rp.setDirectionalLight(new DirectionalLight(vec3(-2, -10, 5), vec3(0, 0.3, 0.4), vec3(1, 1, 1), 5));
 
 	pw = new PhysicsWorld(4,2);
 	wood = loadpng("../res/textures/wood.png");
@@ -62,10 +66,20 @@ void SimpleScene::start() {
 	body->position.setY(4);
 	body->friction = 1;
 	body->inv_Mass = 0.5f;
-	body->elements.push_back(new Element(*body, new AABB(vec3(0, 0, 0), vec3(0.25f, 1, 0.25f))));
+	Element *e = new Element(*body, new AABB(vec3(0, 0, 0), vec3(0.25f, 1, 0.25f)));
+	body->elements.push_back(e);
 	pw->bodies.push_back(body);
 
+	PortalObj* p1 = new PortalObj(Transform(vec3(0, 1, -4), vec3(1, 2, 0.3)), portal, wood);
+	PortalObj* p2 = new PortalObj(Transform(vec3(0, 1, 0), vec3(1, 2, 0.3)), portal, wood2);
+	p2->getTransform().setRot(quat::fromEulerDeg(vec3(0, 0, 0)), this);
+	p1->getTransform().setRot(quat::fromEulerDeg(vec3(0, 45, 0)), this);
+	p1->bindPortal(p2);
+	p2->bindPortal(p1);
+	portals.push_back(p1);
+	portals.push_back(p2);
 	rp.setObjs(&objects);
+	rp.setPortals(&portals);
 
 
 }

@@ -9,6 +9,7 @@
 #include "vec3.h"
 class mat4;
 class quat{
+	friend class mat4;
 private:
 	float x;
 	float y;

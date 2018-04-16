@@ -12,9 +12,18 @@ void ShadowStage::render() {
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_FRONT);
 	glEnable(GL_DEPTH_TEST);
-	pipeline->dl->drawShadowMap(*pipeline->objects, shadowmapper);
+	directionalLight->drawShadowMap(*pipeline->objects, shadowmapper);
 }
 
 ShadowStage::~ShadowStage() {
 	delete shadowmapper;
+}
+
+void ShadowStage::bindDirectionalLight(DirectionalLight *directionalLight) {
+	this->directionalLight = directionalLight;
+
+}
+
+void ShadowStage::reset() {
+
 }

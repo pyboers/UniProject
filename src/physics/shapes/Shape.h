@@ -37,6 +37,8 @@ public:
 
 	const quat &getRotation() const;
 
+	virtual bool isPointInside(vec3 point) const = 0;
+
 	/*
 	 * CollisionDetection
 	 */

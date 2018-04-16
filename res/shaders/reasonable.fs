@@ -3,7 +3,7 @@
 #define gamma 2.2
 
 //consts
-const vec3 ambient = vec3(0.1, 0.1, 0.1);
+const vec3 ambient = vec3(0.0, 0.0, 0.0);
 const vec2 poissonDisk[4] = vec2[](
         vec2( -0.94201624, -0.39906216 ),
         vec2( 0.94558609, -0.76890725 ),
@@ -55,6 +55,7 @@ float shadowPoisson(){
         fMap += texture(dLShadowMap, vec3(scoord.xy + (poissonDisk[i]/2000.0), scoord.z - bias) );
     }
     fMap/=4;
+
     return fMap;
 }
 

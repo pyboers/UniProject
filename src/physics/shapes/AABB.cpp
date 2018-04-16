@@ -15,3 +15,19 @@ shapeType AABB::getType() const {
 const vec3 &AABB::getDimensions() const {
 	return dimensions;
 }
+
+bool AABB::isPointInside(vec3 point) const {
+	float minx, maxx, miny, maxy, minz, maxz;
+	minx = position.getX() - dimensions.getX();
+	maxx = position.getX() + dimensions.getX();
+
+	miny = position.getY() - dimensions.getY();
+	maxy = position.getY() + dimensions.getY();
+
+	minz = position.getZ() - dimensions.getZ();
+	maxz = position.getZ() + dimensions.getZ();
+
+	return point.getX() >= minx && point.getX() <= maxx
+		   && point.getY() >= miny && point.getY() <= maxy
+		   && point.getZ() >= minz && point.getZ() <= maxz;
+}

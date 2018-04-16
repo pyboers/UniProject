@@ -16,12 +16,15 @@ class SimpleRenderPipeline : public RenderPipeline{
 	SceneStage sceneStage;
 	PostStage postStage;
 	Camera *camera;
+	std::vector<PortalObj *> *portals;
 public:
 	SimpleRenderPipeline();
 
 	void render() override;
 
 	void setCamera(Camera * camera);
+
+	void setPortals(std::vector<PortalObj*> *portals);
 
 	~SimpleRenderPipeline() override;
 };

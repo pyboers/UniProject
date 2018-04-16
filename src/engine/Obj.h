@@ -19,7 +19,7 @@ protected:
 public:
 	Obj(Transform transform, Mesh &mesh, Texture *t);
 	virtual void update(float dt);
-	void render(Shader& shader);
+	virtual void render(Shader& shader);
 
 	Transform& getTransform();
 	const Mesh& getMesh() const;

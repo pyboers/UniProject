@@ -12,9 +12,14 @@ Obj::Obj(Transform transform, Mesh &mesh, Texture* t) : transform(transform), me
 void Obj::render(Shader& shader) {
 	mat4 model = transform.getMatrix();
 	shader.uniformMat4("model", &model);
-	texture->bind(0);
+	if(texture){
+		texture->bind(0);
+	}else{
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
 	shader.uniformi("diffuseMap", 0);
-	mesh.draw();
+	mesh.draw(); //Box2 causes bounciness when this is called
 }
 
 Transform &Obj::getTransform() {

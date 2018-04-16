@@ -39,7 +39,6 @@ void Mesh::draw() {
 }
 
 
-
 void Mesh::loadModel(char *filename) {
 	FILE *f = fopen(filename, "r"); // open file
 	if (!f) {

@@ -128,8 +128,16 @@ mat4* mat4::initRotation(float x, float y, float z)
 }
 
 mat4 *mat4::initRotation(const quat &rot) {
-	vec3 euler = rot.toEulerAngles();
-	return initRotation(euler.getX(), euler.getY(), euler.getZ());
+	vec3 forward = vec3(2.0f * (rot.x * rot.z - rot.w * rot.y),
+						2.0f * (rot.y * rot.z + rot.w * rot.x),
+						1.0f - 2.0f * (rot.x * rot.x + rot.y * rot.y));
+	vec3 up = vec3(2.0f * (rot.x * rot.y + rot.w * rot.z),
+				   1.0f - 2.0f * (rot.x * rot.x + rot.z * rot.z),
+				   2.0f * (rot.y * rot.z - rot.w * rot.x));
+	vec3 right = vec3(1.0f - 2.0f * (rot.y * rot.y + rot.z * rot.z),
+					  2.0f * (rot.x * rot.y - rot.w * rot.z),
+					  2.0f * (rot.x * rot.z + rot.w * rot.y));
+	return initRotation(forward, up, right);
 }
 
 mat4* mat4::initRotation(const vec3& forward, const vec3& up)

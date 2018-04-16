@@ -18,6 +18,10 @@ public:
 	}
 
 
+	virtual void reset() = 0;
+	virtual void bind(){
+
+	} //This serves to allow outside drawing to its output buffer
 	virtual void render() = 0;
 
 	virtual ~RenderStage() = default;

@@ -16,6 +16,7 @@ public:
 
 
 	void render() override;
+	void reset();
 
 	void setPreTexture(const Texture* texture);
 

@@ -21,5 +21,7 @@ public:
 	shapeType getType() const override;
 
 	const vec3 &getDimensions() const;
+
+	bool isPointInside(vec3 point) const override;
 };
 #endif //UNIPROJECT_AABB_H

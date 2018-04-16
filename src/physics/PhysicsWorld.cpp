@@ -18,6 +18,7 @@ PhysicsWorld::~PhysicsWorld() {
 
 void PhysicsWorld::update(float dt) {
 	dt = math::clamp(dt, 0.001, 1);
+	dt = 0.017;
 	dt /= frequency;
 	for (int step = 0; step < frequency; step++) {
 		for (Body *b : bodies) {

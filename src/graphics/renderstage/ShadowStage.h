@@ -13,11 +13,16 @@
 class ShadowStage : public RenderStage {
 private:
 	Shader *shadowmapper;
+	DirectionalLight *directionalLight;
 public:
 	explicit ShadowStage();
 
 
 	void render() override;
+
+	void reset();
+
+	void bindDirectionalLight(DirectionalLight *directionalLight);
 
 	~ShadowStage() override;
 };

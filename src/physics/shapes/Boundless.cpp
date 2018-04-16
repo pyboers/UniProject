@@ -9,3 +9,7 @@ shapeType Boundless::getType() const
 void Boundless::update(vec3 position, quat rotation) {
 	Shape::update(position, rotation);
 }
+
+bool Boundless::isPointInside(vec3 point) const {
+	return true;
+}

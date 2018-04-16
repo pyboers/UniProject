@@ -12,6 +12,8 @@ public:
 
 
 	void update(vec3 position, quat rotation) override;
+
+	bool isPointInside(vec3 point) const;
 };
 
 #endif

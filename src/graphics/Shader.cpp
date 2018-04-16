@@ -125,3 +125,7 @@ void Shader::uniformf(char * name, float f) {
 void Shader::uniformi(char * name, int i) {
 	glUniform1i(getUniformLocation(name), i);
 }
+
+void Shader::uniformVec4(char *name, vec4 *v) {
+	uniformVec4(name, v->getX(), v->getY(), v->getZ(), v->getW());
+}

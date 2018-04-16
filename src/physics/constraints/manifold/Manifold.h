@@ -23,7 +23,7 @@ public:
 		float strength = 0.1f;
 		float s = c.mtv.calculateMagnitude() - slop;
 		if (s > 0) {
-			return (strength / dt) * s;
+			return (strength/dt) * s;
 		}
 		return 0;
 	}
