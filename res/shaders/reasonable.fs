@@ -3,7 +3,7 @@
 #define gamma 2.2
 
 //consts
-const vec3 ambient = vec3(0.0, 0.0, 0.0);
+const vec3 ambient = vec3(0.1, 0.1, 0.1);
 const vec2 poissonDisk[4] = vec2[](
         vec2( -0.94201624, -0.39906216 ),
         vec2( 0.94558609, -0.76890725 ),

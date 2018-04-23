@@ -17,17 +17,15 @@ SceneStage::SceneStage() {
 void SceneStage::render() {
 	glClearColor(0,.7,1,1);
 	pre->bind();
-	basicShader->bind();
 	for(auto *light : pipeline->lights){
 		light->updateShader(basicShader);
 	}
-	pipeline->dl->updateShader(basicShader);
+
+	portalSceneShader->bind();
 	pipeline->dl->updateShader(portalSceneShader);
 	pipeline->dl->getShadowMap().bind(1);
-	basicShader->bind();
-	basicShader->uniformi("dLShadowMap", 1);
-	portalSceneShader->bind();
 	portalSceneShader->uniformi("dLShadowMap", 1);
+	portalSceneShader->uniformMat4("depthvp", &pipeline->dl->getvp());
 
 	glEnable(GL_STENCIL_TEST);
 	for(auto * portal : *portals){
@@ -90,11 +88,15 @@ void SceneStage::render() {
 			vec3 campos = camera->transform.getPos().getCopy();
 			portalShader->uniformVec3("viewpos", &campos);
 			portal->render(*portalShader);
-			basicShader->bind();
 		}
 		glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 	}
 	glDisable(GL_STENCIL_TEST);
+
+	basicShader->bind();
+	pipeline->dl->updateShader(basicShader);
+	pipeline->dl->getShadowMap().bind(1);
+	basicShader->uniformi("dLShadowMap", 1);
 	basicShader->uniformMat4("depthvp", &pipeline->dl->getvp());
 
 	mat4 viewprojection = camera->getViewProjection();

@@ -19,5 +19,4 @@ void PortalObj::bindPortal(PortalObj *bound) {
 
 void PortalObj::update() {
 	transform.setPos(body.position.getCopy(), this);
-	transform.setRot(body.orientation.getCopy(), this);
 }

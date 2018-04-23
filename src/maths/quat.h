@@ -174,5 +174,7 @@ public:
 	bool operator==(const quat& other) const;
 
 	quat getCopy() const;
+
+
 };
 #endif //UNIPROJECT_QUAT_H

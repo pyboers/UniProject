@@ -48,9 +48,9 @@ void SimpleScene::start() {
 	}
 	for(int i = 0; i<100; i++) {
 		Body *b = new Body(*pw, id);
-		b->position.setX(3 + rand()%5);
+		b->position.setX(3 + rand()%6);
 		b->position.setY(i/5.f);
-		b->position.setZ(-3 -rand()%5);
+		b->position.setZ(-3 -rand()%6);
 		b->inv_Mass = 1;
 		b->friction = 0.5f;
 		if(rand()%10 > 5){
@@ -72,12 +72,14 @@ void SimpleScene::start() {
 
 	Body *p1body = new Body(*pw, id);
 	p1body->position = vec3(0, 1, -4);
+	p1body->inv_Mass = 0;
 	pw->bodies.push_back(p1body);
 	Body *p2body = new Body(*pw, id);
+	p2body->inv_Mass = 0;
 	p2body->position = vec3(0, 1, 0);
 	pw->bodies.push_back(p2body);
-	PortalObj* p1 = new PortalObj(Transform(vec3(0, 1, -4), vec3(1, 2, 0.3)), portal, wood, *p1body);
-	PortalObj* p2 = new PortalObj(Transform(vec3(0, 1, 0), vec3(1, 2, 0.3)), portal, wood2, *p2body);
+	PortalObj* p1 = new PortalObj(Transform(vec3(0, 1, -4), vec3(2, 3, 0.3)), portal, wood, *p1body);
+	PortalObj* p2 = new PortalObj(Transform(vec3(0, 1, 0), vec3(2, 3, 0.3)), portal, wood2, *p2body);
 
 	p2->getTransform().setRot(quat::fromEulerDeg(vec3(0, 0, 0)), this);
 	p1->getTransform().setRot(quat::fromEulerDeg(vec3(0, 45, 0)), this);
@@ -146,6 +148,9 @@ void SimpleScene::update(float dt) {
 	camera->transform.setPos(body->position + vec3(0, 0.5f, 0), this);
 	for(Obj* obj : objects){
 		obj->update(dt);
+	}
+	for(auto * portal: portals){
+		portal->update();
 	}
 }
 
