@@ -1,5 +1,5 @@
 #include "Shader.h"
-
+#include <unistd.h>
 Shader::~Shader() {
 	glDeleteProgram(vsId);
 	glDeleteProgram(fsId);
@@ -11,6 +11,9 @@ static int loadFileInto(char * dest, char * name) {
 	FILE *f = fopen(name, "r"); 
 	if (!f) {
 		printf("File won't say hello to world %s\n", name);
+		char buffer[1024];
+		getcwd(buffer, 1024);
+		printf("LOG: %s\n", buffer);
 		return NULL;
 	}
 	while (fgets(buff, 0xFF, f)) {
@@ -100,7 +103,7 @@ int Shader::getUniformLocation(char * name) {
 }
 
 void Shader::uniformMat4(char * name, mat4 * m) {
-	glUniformMatrix4fv(getUniformLocation(name), 1, 0, m->getData());
+	glUniformMatrix4fv(getUniformLocation(name), 1,  1, m->getData());
 }
 
 void Shader::uniformVec3(char * name, vec3 * v) {
@@ -121,4 +124,8 @@ void Shader::uniformf(char * name, float f) {
 
 void Shader::uniformi(char * name, int i) {
 	glUniform1i(getUniformLocation(name), i);
+}
+
+void Shader::uniformVec4(char *name, vec4 *v) {
+	uniformVec4(name, v->getX(), v->getY(), v->getZ(), v->getW());
 }

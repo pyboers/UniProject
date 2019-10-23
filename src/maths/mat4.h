@@ -4,6 +4,7 @@
 
 #include "vec4.h"
 #include "vec3.h"
+#include "quat.h"
 
 class mat4 {
 protected:
@@ -48,6 +49,14 @@ public:
 	 * @return this matrix
 	 */
 	mat4* initRotation(float x, float y, float z);
+
+	/**
+	 * initialize a full rotation matrix.
+	 *
+	 * @param rot the quaternion representing the rotation
+	 * @return this matrix
+	 */
+	mat4* initRotation(const quat &rot);
 
 	/**
 	 * Initializes this matrix as a rotation matrix from a basis.

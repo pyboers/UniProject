@@ -19,7 +19,7 @@ void Mesh::load(GLfloat vertices[], GLuint indices[], GLuint vsize, GLuint isize
 	glGenBuffers(1, &vboID);	// Generating Vertex Buffer
 	glBindBuffer(GL_ARRAY_BUFFER, vboID);	// Binding as an array buffer
 	glBufferData(GL_ARRAY_BUFFER, vsize * sizeof(GLfloat), vertices, GL_STATIC_DRAW); // Inserting vertices into vbo.
-				
+
 	glVertexAttribPointer(0, 3, GL_FLOAT, 0, 8 * sizeof(GLfloat), 0); //Attribute 0 has 3 non normalized floats in chunks of 8 with an offset of 0. Vertex Attribute
 	glVertexAttribPointer(1, 2, GL_FLOAT, 0, 8 * sizeof(GLfloat), (const void *)(3 * sizeof(GLfloat))); //Attribute 1 has 2 non normalized floats in chunks of 8 with an offset of 3 floats to skip the vertices. Texture Attribute
 	glVertexAttribPointer(2, 3, GL_FLOAT, 0, 8 * sizeof(GLfloat), (const void *)(5 * sizeof(GLfloat))); //Attribute 2 has 3 non normalized floats in chunks of 8 with an offset of 5 floats to skip the vertices and texture coords. Normal Attribute
@@ -37,7 +37,6 @@ void Mesh::draw() {
 	glBindVertexArray(vaoID);
 	glDrawElements(target, size, GL_UNSIGNED_INT, 0);
 }
-
 
 
 void Mesh::loadModel(char *filename) {
@@ -79,7 +78,7 @@ void Mesh::loadModel(char *filename) {
 				vertexdata.push_back(vertices[(faces[i]-1) * 3]);
 				vertexdata.push_back(vertices[((faces[i] - 1) * 3) + 1]);
 				vertexdata.push_back(vertices[((faces[i] - 1) * 3) + 2]);
-				
+
 				//uv coords
 				vertexdata.push_back(tex[((faces[i + 1] - 1) * 2)]);
 				vertexdata.push_back(tex[((faces[i + 1] - 1) * 2) + 1]);
@@ -93,7 +92,7 @@ void Mesh::loadModel(char *filename) {
 	}
 	int vertexdatasize = vertexdata.size();
 	unsigned int *indices = (unsigned int *)malloc(sizeof(unsigned int) * vertexdatasize);
-	//Due to the way the file is being read. 
+	//Due to the way the file is being read.
 	//The vertex data is put in the order of the indices specified,
 	//causing the index array to simply be 0...n
 	float *vertexdataarray = (float *)malloc(sizeof(float) * vertexdatasize);
@@ -203,4 +202,12 @@ void Mesh::indexCall(int size) {
 	}
 	glBindVertexArray(indexingvao);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, size);
+}
+
+GLuint Mesh::getVAOID() const {
+	return vaoID;
+}
+
+Mesh::Mesh() {
+
 }

@@ -1,5 +1,6 @@
 #include "vec3.h"
 
+
 vec3 vec3::getCrossProduct(vec3 v1, vec3 v2)
 {
 	float cx = (v1.y * v2.z) - (v1.z * v2.y);
@@ -206,4 +207,24 @@ vec3* vec3::operator()(const vec3& v2)
 	y = v2.y;
 	z = v2.z;
 	return this;
+}
+
+vec3::vec3() {
+	x = 0;
+	y = 0;
+	z = 0;
+}
+
+const vec3 &vec3::up() {
+	static vec3 up = vec3(0, 1, 0);
+	return up;
+}
+
+const vec3 &vec3::right() {
+	static vec3 right = vec3(1, 0, 0);
+	return right;
+}
+
+const vec3 &vec3::forward() {
+	static vec3 forward = vec3(0, 0, -1); //negative to conform with graphics and graphing conventions of negative z forward
 }

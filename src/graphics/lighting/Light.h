@@ -4,17 +4,16 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "../../maths/vec3.h"
 #include "../Shader.h"
-#define MAX_LIGHTS 0
+#define MAX_LIGHTS 4
 class Light{
 private:
 	vec3 diffuseCoefficient;
-	vec3 specularCoefficient;
 	vec3 attenuation;
 	vec3 pos;
 	int Id;
 public:
 	float intensity;
-	Light(int Id, float intensity, vec3 pos, vec3 diffuseCoefficient, vec3 specularCoefficient, vec3 attenuation);
+	Light(int Id, float intensity, vec3 pos, vec3 diffuseCoefficient, vec3 attenuation);
 	void updateShader(Shader *s);
 
 	static void updateAmbient(Shader *s, vec3 *ambient);
